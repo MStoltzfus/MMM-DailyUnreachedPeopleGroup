@@ -18,7 +18,7 @@ modules: [
 			module: 'MMM-DailyUnreachedPeopleGroup',
 			position: 'bottom_bar',	// This can be any of the regions. Best result is in the bottom_bar as data displayed will most likely take multiple lines in a day.
 			config: {
-				apiKey: "YOUR_APIKEY_HERE", //The API Key you recieved from api.joshuaproject.net.
+				apiKey: 'YOUR_APIKEY_HERE', //The API Key you recieved from api.joshuaproject.net.
 				size: 'small' // default value is small, but can be changed. 
 			}
 		}
