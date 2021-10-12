@@ -15,10 +15,10 @@ Module.register("MMM-DailyUnreachedPeopleGroup", {
         //Do this once first
         self.sendSocketNotification('START', apiKey);
 
-        //Then every - hours
+        //Then every 6 hours
         setInterval(function () {
             self.sendSocketNotification('START', configuredVersion);
-        }, 3600000); //perform every hour (3600000 milliseconds)
+        }, 21600000); //perform every six hours (21600000 milliseconds)
     },
 
     getStyles: function () {
