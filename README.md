@@ -5,7 +5,7 @@ In order to make the API call to the Joshua Project API, you will need to [reque
 
 ## Installation
 1. Navigate into your MagicMirror's `modules` folder 
-2. Execute `git clone ---`
+2. Execute `git clone https://github.com/MStoltzfus/MMM-DailyUnreachedPeopleGroup`
 3. Navigate to newly created folder `MMM-DailyUnreachedPeopleGroup`
 4. Execute `npm install`
 
@@ -40,7 +40,7 @@ The following properties can be configured:
 	<thead>
 	<tbody>
 		<tr>
-			<td><code></code></td>
+			<td><code>apiKey</code></td>
 			<td>The API key you should have received after requesting one at https://api.joshuaproject.net/
 			</td>
 		</tr>
