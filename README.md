@@ -1,5 +1,5 @@
 # MMM-DailyUnreachedPeopleGroup
-This an extension for the [MagicMirror](https://github.com/MichMich/MagicMirror). It will display the "Unreached of the Day" from www.joshuaproject.net/pray/unreachedoftheday/today.
+This an extension for the [MagicMirror](https://github.com/MichMich/MagicMirror). It will display the "Unreached of the Day" data from www.joshuaproject.net/pray/unreachedoftheday/today.
 
 In order to make the API call to the Joshua Project API, you will need to [request an API key](https://api.joshuaproject.net/), which is typically delivered via email promptly.
 
