@@ -16,10 +16,11 @@ module.exports = NodeHelper.create({
 
 	socketNotificationReceived: function (notification, payload) {
 		console.log(this.name + " node helper received a socket notification: " + notification + ' and the apiKey payload');
-		//this.joshuaProjectRequest(payload);
+
 		this.joshuaProjectFetch(payload);
 	},
 
+	//Make a GET request to the Joshua Project Daily Unreached API endpoint.
 	joshuaProjectFetch: function (apiKey) {
 
 		let url = 'https://api.joshuaproject.net/v1/people_groups/daily_unreached.json?api_key=' + apiKey
