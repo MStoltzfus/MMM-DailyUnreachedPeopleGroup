@@ -3,6 +3,9 @@ This an extension for the [MagicMirror](https://github.com/MichMich/MagicMirror)
 
 In order to make the API call to the Joshua Project API, you will need to [request an API key](https://api.joshuaproject.net/), which is typically delivered via email promptly.
 
+### Preview
+![Screenshot](UnreachedOfTheDayModule_screenshot.png)
+
 ## Installation
 1. Navigate into your MagicMirror's `modules` folder 
 2. Execute `git clone https://github.com/MStoltzfus/MMM-DailyUnreachedPeopleGroup`
