@@ -4,10 +4,11 @@ Module.register("MMM-DailyUnreachedPeopleGroup", {
     // Default module config.
     unreached: [],
     defaults: {
-        apiKey: '713e8995cb24'
+        apiKey: null,
+        size: 'small'
     },
 
-    start: function() {
+    start: function () {
         Log.info("Starting module: " + this.name);
         var self = this;
         var apiKey = this.config.apiKey
@@ -26,14 +27,14 @@ Module.register("MMM-DailyUnreachedPeopleGroup", {
     },
 
     // Override dom generator.
-    getDom: function() {
+    getDom: function () {
         Log.log("Updating MMM-DailyUnreachedPeopleGroup DOM.");
 
         var displayTitle = "";
         var displaySummary = "";
         var displayPray = "";
 
-        if(this.groupAndCountry != null){
+        if (this.groupAndCountry != null) {
             displayTitle = this.groupAndCountry;
             displaySummary = this.peopleSummary;
             displayPray = this.peoplePray;
@@ -49,7 +50,7 @@ Module.register("MMM-DailyUnreachedPeopleGroup", {
         //create peopleSummary div and innerHTML value for module
         var peopleSummary = document.createElement("div")
         peopleSummary.innerHTML = displaySummary
-        
+
         //create peoplePray div and innerHTML value for module
         var peoplePray = document.createElement("div")
         peoplePray.innerHTML = displayPray
@@ -81,27 +82,44 @@ Module.register("MMM-DailyUnreachedPeopleGroup", {
         wrapper.appendChild(peopleSummary)
         wrapper.appendChild(peoplePray)
         return wrapper;
-        },
+    },
 
-    //Receives websocket from module node.helper, parses out info & updates Dom
+    //Receives websocket from module node.helper and calls functions that parse the payload, assign DOM values, and then updates the Dom
     socketNotificationReceived: function (notification, payload) {
-        Log.log("socket received from MMM-DailyUnreachedPeopleGroup Node Helper");
+        Log.log("Socket received from MMM-DailyUnreachedPeopleGroup Node Helper");
         if (notification == "JOSHUA_PROJECT_RESULT") {
-            
+
             let unreached = payload[0]
 
-            if(unreached.PeopNameInCountry.includes(', ')){
-                var peopleName = unreached.PeopNameInCountry.split(',')[1].substring(1) + " " + unreached.PeopNameInCountry.split(',')[0].substring(0);
-            } else { 
-                peopleName = unreached.PeopNameInCountry
-            };
-            Log.log("Unreached People Group of the Day -", peopleName);
-
-            this.groupAndCountry = ('Today\'s Unreached People Group of the Day is the ' + peopleName + ' from ' + unreached.Ctry)
-            this.peopleSummary = ('Summary: ' + unreached.ProfileText[0].Summary)
-            this.peoplePray = ('Prayer: ' + unreached.ProfileText[0].PrayForPG)
+            this.parsePayload(unreached);
 
             this.updateDom();
         }
+    },
+
+    //Parses Joshua Project payload - there's some unique formatting with how the data is provided through the JP API, so this function applies some logic to format it properly
+    parsePayload: function (unreached) {
+
+        let { PeopNameInCountry } = unreached;
+
+        if (PeopNameInCountry.includes(', ')) {
+            var peopleName = PeopNameInCountry.split(',')[1].substring(1) + " " + PeopNameInCountry.split(',')[0].substring(0);
+        } else {
+            peopleName = PeopNameInCountry
+        };
+
+        this.assignDomValues(unreached, peopleName);
+    },
+
+    //Assigns DOM values to vars initialized in the getDom function. 
+    //Called within the parsePayload function because I banged my head against the wall trying to get async/await to work in the socketNotificationRecieved function and gave up.
+    //Feedback/help would be much appreciated.
+    assignDomValues: function (unreached, peopleName) {
+
+        let { Ctry, ProfileText } = unreached
+
+        this.groupAndCountry = ('Today\'s Unreached People Group of the Day is the ' + peopleName + ' from ' + Ctry)
+        this.peopleSummary = ('Summary: ' + ProfileText[0].Summary)
+        this.peoplePray = ('Prayer: ' + ProfileText[0].PrayForPG)
     },
 });
